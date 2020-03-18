@@ -1,0 +1,51 @@
+<template>
+  <div class="home">
+    <template>
+      <h1>Welcome to the sample App</h1>
+      <button @click="toSignUp">Sign up now!!</button>
+      <h3>This is the home page for the microposts application by <a href="https://jp.vuejs.org/index.html">vue.js</a> </h3>
+      <img src="@/assets/logo.png"/>
+    </template>
+    <template>
+      <h3>MicroPost</h3>
+      <label for="username"></label>
+      <input id="username" type="text" v-model="username"/>
+      <br><br>
+      <labal for="micropost"></labal>
+      <textarea id="micropost" v-model="micropost"></textarea>
+      <br><br>
+      <button @click="createPost">Post</button>
+      <h2>Micropost Feed</h2>
+      <hr>
+      <div v-for="post in posts" :key="post.name">
+        <div>
+          UserName:
+        </div>
+        <div>
+          post:
+        </div>
+        <br>
+        <hr>
+      </div>
+    </template>
+  </div>
+</template>
+
+<script>
+
+  export default {
+    data() {
+      return{
+        username: "",
+        micropost: "",
+        posts: []
+      };
+    }
+  };
+</script>
+
+<style scoped>
+  .home{
+    text-align: center;
+  }
+</style>
