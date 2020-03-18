@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link to="/" class="link" active-class="link--active" exact>Home</router-link>
-    <template v-if="!isAuthenticated">
+    <template>
       <router-link to="/signup" class="link" active-class="link--active" exact>Signup</router-link>
       <router-link to="/login" class="link" active-class="link--active" exact>Login</router-link>
     </template>
@@ -16,15 +16,6 @@
 </template>
 
 <script>
-  export default {
-    computed: {
-      isAuthenticated() {}
-    },
-    methods: {
-      logout() {}
-    }
-  };
-  
 </script>
 
 <style scoped>
