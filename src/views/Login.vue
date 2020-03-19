@@ -12,6 +12,7 @@
 
 <script>
 import axios from 'axios';
+import router from '../router';
 
 export default {
     data() {
@@ -28,7 +29,10 @@ export default {
           password: this.password,
           returnSecureToken: true
         }).then(response => {
+          this.$store.state.idToken = response.data.idToken;
+          console.log(this.$store.state.idToken);
           console.log(response);
+          router.push('/')
         });
       }
     }

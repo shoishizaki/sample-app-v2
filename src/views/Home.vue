@@ -1,9 +1,12 @@
 <template>
   <div class="home">
+    <template v-if="!isAuthenticated">
       <h1>Welcome to the sample App</h1>
-      <button>Sign up now!!</button>
+      <button @click="toSignUp">Sign up now!!</button>
       <h3>This is the home page for the microposts application by <a href="https://jp.vuejs.org/index.html">vue.js</a> </h3>
       <img src="@/assets/logo.png"/>
+    </template>
+    <template v-if="isAuthenticated">
       <h3>MicroPost</h3>
       <label for="username"></label>
       <input id="username" type="text" v-model="username"/>
@@ -19,22 +22,36 @@
         <div>post: {{post.fields.post.stringValue}}</div>
         <br>
       </div>
+    </template>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import router from "../router";
 
   export default {
+    computed: {
+      idToken() {
+        return this.$store.state.idToken;
+      },
+      isAuthenticated() {
+        return this.$store.getters.idToken !== null;
+      }
+    },
     data() {
       return{
         username: "",
         micropost: "",
-        posts: []
+        posts: [],
       };
     },
     created() {
-      axios.get('https://firestore.googleapis.com/v1/projects/sample-vuejs-70946/databases/(default)/documents/posts',
+      axios.get('https://firestore.googleapis.com/v1/projects/sample-vuejs-70946/databases/(default)/documents/posts',{
+        headers: {
+          Authorization: `Bearer ${this.idToken}`
+        }
+      }
       )
       .then(response => {
         this.posts = response.data.documents;
@@ -53,6 +70,10 @@ import axios from "axios";
               stringValue:this.micropost
             }
           }
+        }, {
+          headers: {
+            Authorization: `Bearer ${this.idToken}`
+          }
         }
         )
         .then(response => {
@@ -63,6 +84,9 @@ import axios from "axios";
         });
       this.name = "";
       this.micropost = "";
+      },
+      toSignUp() {
+        router.push('/signup');
       }
     }
   };

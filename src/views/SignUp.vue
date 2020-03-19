@@ -14,6 +14,7 @@
 
 <script>
 import axios from 'axios';
+import router from '../router';
 
   export default {
     data() {
@@ -57,6 +58,7 @@ import axios from 'axios';
         }
         ).then(response => {
           console.log(response);
+          router.push('/');
         });
       }
     }
