@@ -6,7 +6,7 @@
     <label for="password">Password</label>
     <input id="password" type="password" v-model="password">
     <br>
-    <button @click="login">Login</button>
+    <button>Login</button>
   </div>
 </template>
 

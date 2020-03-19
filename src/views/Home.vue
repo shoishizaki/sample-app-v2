@@ -1,7 +1,7 @@
 <template>
   <div class="home">
       <h1>Welcome to the sample App</h1>
-      <button @click="toSignUp">Sign up now!!</button>
+      <button>Sign up now!!</button>
       <h3>This is the home page for the microposts application by <a href="https://jp.vuejs.org/index.html">vue.js</a> </h3>
       <img src="@/assets/logo.png"/>
       <h3>MicroPost</h3>
@@ -13,6 +13,12 @@
       <br><br>
       <button @click="createPost">Post</button>
       <h2>Micropost Feed</h2>
+      <div v-for="post in posts" :key="post.name">
+        <hr>
+        <div>Username: {{post.fields.username.stringValue}}</div>
+        <div>post: {{post.fields.post.stringValue}}</div>
+        <br>
+      </div>
   </div>
 </template>
 
@@ -31,7 +37,8 @@ import axios from "axios";
       axios.get('https://firestore.googleapis.com/v1/projects/sample-vuejs-70946/databases/(default)/documents/posts',
       )
       .then(response => {
-        console.log(response);
+        this.posts = response.data.documents;
+        console.log(this.posts);
       });
     },
     methods: {
