@@ -6,19 +6,31 @@
     <label for="password">Password</label>
     <input id="password" type="password" v-model="password">
     <br>
-    <button>Login</button>
+    <button @click="login">Login</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
-  
     data() {
       return {
           email: "",
           password: ""
         };
+    },
+    methods: {
+      login() {
+        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD7xFhBnGy0DT-EXJEncF8ilUusidQe34Q',
+        {
+          email: this.email,
+          password: this.password,
+          returnSecureToken: true
+        }).then(response => {
+          console.log(response);
+        });
+      }
     }
 };
 
