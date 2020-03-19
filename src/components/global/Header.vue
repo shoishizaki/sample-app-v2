@@ -10,17 +10,28 @@
     </template>
     <router-link to="/help" class="link" active-class="link--active" exact>Help</router-link>
     <template v-if="isAuthenticated">
-      <span class="link" active-class="link--active">Logout</span>
+      <span class="link" active-class="link--active" @click="logout">Logout</span>
     </template>
   </div>
 </template>
 
 <script>
+import router from "../../router";
+
 export default {
   computed: {
     isAuthenticated() {
     return this.$store.getters.idToken !== null;
-  }
+  },
+  idToken() {
+        return this.$store.getters.idToken;
+      },
+  },
+  methods: {
+    logout() {
+      this.$store.getters.logout;
+      router.replace('/login');
+    }
   }
 };
 

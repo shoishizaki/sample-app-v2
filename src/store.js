@@ -8,6 +8,8 @@ export default new Vuex.Store({
     idToken: null
   },
   getters: {
-    idToken: state => state.idToken
+    idToken: state => state.idToken,
+    logout: state => state.idToken = null
   }
+  
 })
