@@ -8,7 +8,7 @@
     <label for="password">Password</label>
     <input id="password" type="password" v-model="password">
     <br>
-    <button @click="createUser">Create my account</button>
+    <button @click="register">Create my account</button>
   </div>
 </template>
 
@@ -24,6 +24,10 @@ import axios from 'axios';
       };
     },
     methods: {
+      register(){
+        this.createUser();
+        this.signup();
+      },
       createUser(){
         axios.post('https://firestore.googleapis.com/v1/projects/sample-vuejs-70946/databases/(default)/documents/users',
         {
@@ -43,8 +47,17 @@ import axios from 'axios';
         .catch(error => {
           console.log(error);
         });
-        this.username = "";
-        this.email = "";
+      },
+      signup(){
+        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD7xFhBnGy0DT-EXJEncF8ilUusidQe34Q',
+        {
+          email: this.email,
+          password: this.password,
+          returnSecureToken: true
+        }
+        ).then(response => {
+          console.log(response);
+        });
       }
     }
 };
