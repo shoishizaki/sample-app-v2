@@ -11,6 +11,7 @@
     <router-link to="/help" class="link" active-class="link--active" exact>Help</router-link>
     <template v-if="isAuthenticated">
       <span class="link" active-class="link--active" @click="logout">Logout</span>
+      <span>User: {{ this.$store.state.username }}</span>
     </template>
   </div>
 </template>

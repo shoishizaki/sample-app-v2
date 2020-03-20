@@ -55,7 +55,6 @@ import router from "../router";
       )
       .then(response => {
         this.posts = response.data.documents;
-        console.log(this.posts);
       });
     },
     methods: {
@@ -75,13 +74,7 @@ import router from "../router";
             Authorization: `Bearer ${this.idToken}`
           }
         }
-        )
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        );
       this.name = "";
       this.micropost = "";
       },

@@ -5,7 +5,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    idToken: null
+    idToken: null,
+    username: null,
+    email: null
   },
   getters: {
     idToken: state => state.idToken,

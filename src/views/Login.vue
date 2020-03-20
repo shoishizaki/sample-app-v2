@@ -18,7 +18,8 @@ export default {
     data() {
       return {
           email: "",
-          password: ""
+          password: "",
+          users: []
         };
     },
     methods: {
@@ -30,9 +31,22 @@ export default {
           returnSecureToken: true
         }).then(response => {
           this.$store.state.idToken = response.data.idToken;
-          console.log(this.$store.state.idToken);
+          this.$store.state.email = response.data.email;
+          this.findUser();
+          router.push('/');
+        });
+      },
+      findUser() {
+        axios.get('https://firestore.googleapis.com/v1/projects/sample-vuejs-70946/databases/(default)/documents/users')
+        .then(response => {
           console.log(response);
-          router.push('/')
+          this.users = response.data.documents;
+          console.log(this.users);
+          for (var i = 0; i < this.users.length; i++) {
+            if (this.$store.state.email == this.users[i].fields.email.stringValue) {
+              this.$store.state.username = this.users[i].fields.username.stringValue;
+            }
+          }
         });
       }
     }
