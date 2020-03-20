@@ -57,6 +57,7 @@ import router from '../router';
           returnSecureToken: true
         }
         ).then(response => {
+          this.$store.state.idToken = response.data.idToken;
           console.log(response);
           router.push('/');
         });
