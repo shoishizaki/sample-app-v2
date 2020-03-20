@@ -8,9 +8,6 @@
     </template>
     <template v-if="isAuthenticated">
       <h3>MicroPost</h3>
-      <label for="username"></label>
-      <input id="username" type="text" v-model="username"/>
-      <br><br>
       <labal for="micropost"></labal>
       <textarea id="micropost" v-model="micropost"></textarea>
       <br><br>
@@ -41,7 +38,6 @@ import router from "../router";
     },
     data() {
       return{
-        username: "",
         micropost: "",
         posts: [],
       };
@@ -63,7 +59,7 @@ import router from "../router";
         {
           fields: {
             username: {
-              stringValue:this.username
+              stringValue:this.$store.state.username
             },
             post: {
               stringValue:this.micropost
@@ -75,7 +71,6 @@ import router from "../router";
           }
         }
         );
-      this.name = "";
       this.micropost = "";
       },
       toSignUp() {
