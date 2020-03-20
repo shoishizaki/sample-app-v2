@@ -28,6 +28,7 @@ import router from '../router';
       register(){
         this.createUser();
         this.signup();
+        this.sendUserInformation();
       },
       createUser(){
         axios.post('https://firestore.googleapis.com/v1/projects/sample-vuejs-70946/databases/(default)/documents/users',
@@ -41,13 +42,7 @@ import router from '../router';
             }
           }
         }
-        )
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        );
       },
       signup(){
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD7xFhBnGy0DT-EXJEncF8ilUusidQe34Q',
@@ -58,9 +53,12 @@ import router from '../router';
         }
         ).then(response => {
           this.$store.state.idToken = response.data.idToken;
-          console.log(response);
           router.push('/');
         });
+      },
+      sendUserInformation() {
+        this.$store.state.username = this.username;
+        this.$store.state.email = this.email;
       }
     }
 };
