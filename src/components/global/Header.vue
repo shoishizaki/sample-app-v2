@@ -31,6 +31,7 @@ export default {
   methods: {
     logout() {
       this.$store.getters.logout;
+      alert("Logout completed");
       router.replace('/login');
     }
   }

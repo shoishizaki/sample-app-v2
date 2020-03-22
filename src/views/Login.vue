@@ -34,6 +34,7 @@ export default {
           this.$store.state.email = response.data.email;
           this.findUser();
           router.push('/');
+          alert("Login completed!");
         });
       },
       findUser() {

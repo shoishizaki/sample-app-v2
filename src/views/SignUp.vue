@@ -29,6 +29,7 @@ import router from '../router';
         this.createUser();
         this.signup();
         this.sendUserInformation();
+        alert("User registered");
       },
       createUser(){
         axios.post('https://firestore.googleapis.com/v1/projects/sample-vuejs-70946/databases/(default)/documents/users',
