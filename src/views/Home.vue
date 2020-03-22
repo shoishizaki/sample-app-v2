@@ -18,7 +18,7 @@
         <div>Username: {{post.fields.username.stringValue}}</div>
         <div>post: {{post.fields.post.stringValue}}</div>
         <div v-if="post.editable">
-          <button>Delete</button>
+          <button @click="deletePost(post.name)">Delete</button>
         </div>
         <br>
       </div>
@@ -76,13 +76,17 @@ import router from "../router";
         }
         );
       this.micropost = "";
+      alert("Created micropost!");
+      router.push('/users');
       },
       toSignUp() {
         router.push('/signup');
       },
-      // deletePost(url) {
-      //   axios.delete(url);
-      // },
+      deletePost(url) {
+        axios.delete(`https://firestore.googleapis.com/v1/${url}`);
+        alert("Deleted post");
+        router.push('/users');
+      },
       isEditable() {
         for (var n = 0; n < this.posts.length; n++ ) {
           if (this.posts[n].fields.username.stringValue == this.$store.state.username) {
