@@ -17,6 +17,9 @@
         <hr>
         <div>Username: {{post.fields.username.stringValue}}</div>
         <div>post: {{post.fields.post.stringValue}}</div>
+        <div v-if="post.editable">
+          <button>Delete</button>
+        </div>
         <br>
       </div>
     </template>
@@ -39,7 +42,7 @@ import router from "../router";
     data() {
       return{
         micropost: "",
-        posts: [],
+        posts: []
       };
     },
     created() {
@@ -51,6 +54,7 @@ import router from "../router";
       )
       .then(response => {
         this.posts = response.data.documents;
+        this.isEditable();
       });
     },
     methods: {
@@ -75,6 +79,18 @@ import router from "../router";
       },
       toSignUp() {
         router.push('/signup');
+      },
+      // deletePost(url) {
+      //   axios.delete(url);
+      // },
+      isEditable() {
+        for (var n = 0; n < this.posts.length; n++ ) {
+          if (this.posts[n].fields.username.stringValue == this.$store.state.username) {
+            this.posts[n]["editable"] = true;
+          } else {
+            this.posts[n]["editable"] = false;
+          }
+        }
       }
     }
   };
